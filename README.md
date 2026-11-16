@@ -1,59 +1,50 @@
-# TrilhaAngular
+## Projeto da disciplica de programação IV, conforme temas criados pelo professor
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.29.
+## Tema: Trilhas de um parque turístico
 
-## Development server
+## Integrantes do grupo
 
-To start a local development server, run:
+ - Monica
+ - Elton
+ - Guilherme Di Lucca
+ - João Victor
+ - Kayky Breno
 
-```bash
-ng serve
-```
+ 
+## Funcionalidades
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+ - Cadastro de usuários
+ - Login
+ - Cadastro de trilhas
+ - Visualização das trilhas cadastradas
+ - Edição das trilhas
+ - Deleção das trilhas
+ - Restrições por nível de acesso do usuário
+ - Alteração de nível de acesso do usuário
+ - Deleção de usuários
+ - Acesso por uma hora após realizar o login
+ - Informação do horário final de acesso à plataforma
+ - Banco em memória H2 implementado para facilitar a execução
+ 
 
-## Code scaffolding
+## Regras de negócio
+ - Validação pela distância da trilha na criação (o tamanho não pode ultrapassar 100.000 metros)
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
 
-```bash
-ng generate component component-name
-```
+## Instruções para executar o backend
+ 
+ 1- Clone este repositório utilizando o comando "git clone https://github.com/monicasmoura/TrilhasBackend.git"
+ 2- Abra o projeto dentro do eclipse IDE
+ 3- Execute o Program.java como uma aplicação java
+ 4- Acesse a documentação em "localhost:8080/swagger"
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
 
-```bash
-ng generate --help
-```
+## Instruções para executar o frontend
+ 
+ 1- Clone este repositório utilizando o comando "git clone https://github.com/monicasmoura/TrilhasFrontend.git"
+ 2- Abra a pasta do projeto com o terminal e digite "npm install" para instalar as dependências necessárias
+ 3- digite no mesmo terminal "npm start"
+ 4- Acesse a aplicação em "localhost:4200"
 
-## Building
+ 
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
