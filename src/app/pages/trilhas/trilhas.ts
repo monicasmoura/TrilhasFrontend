@@ -137,7 +137,6 @@ export class Trilhas{
             }
         });
 }else{
-
       const obj = { nome : this.nomeTrilha(), descricao : this.descricaoTrilha(), distanciaMetros: this.distanciaMetros() }
       this.http.post('http://localhost:8080/api/trilhas',obj,
         ).subscribe({
@@ -152,6 +151,12 @@ export class Trilhas{
             }
         });
    }
+
+   this.nomeTrilha.set("");
+   this.descricaoTrilha.set("");
+   this.distanciaMetros.set(0);
+   this.idTrilha.set(0);
+
   }
 
 
