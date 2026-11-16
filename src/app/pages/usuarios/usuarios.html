@@ -1,11 +1,12 @@
-
 <div class="p-6 mx-auto max-w-7xl">
-    <h2 class="font-bold py-4 text-xl ">
+
+    <h2 class="font-bold py-4 text-xl">
         Usuários Cadastrados
     </h2>
 
     <div class="overflow-x-auto">
         <table class="w-full border-collapse border border-gray-300 shadow-sm text-sm">
+
             <thead class="bg-gray-200">
                 <tr>
                     <th class="border border-gray-300 px-4 py-3 text-left">#</th>
@@ -19,19 +20,37 @@
             <tbody>
                 @for (u of (usuarios() ?? []); track u.id) {
                     <tr class="hover:bg-gray-50 transition-colors">
-                        <td class="border border-gray-300 px-4 py-3"> {{ u.id }} </td>
-                        <td class="border border-gray-300 px-4 py-3"> {{ u.nome }} </td>
-                        <td class="border border-gray-300 px-4 py-3"> {{ u.email }} </td>
-                        <td class="border border-gray-300 px-4 py-3"> 
-                            @if (u.papel == "adm"){
-                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"> administrador </span> 
-                            }@else{
-                                <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm"> usuário </span>
+
+                        <td class="border border-gray-300 px-4 py-3">{{ u.id }}</td>
+                        <td class="border border-gray-300 px-4 py-3">{{ u.nome }}</td>
+                        <td class="border border-gray-300 px-4 py-3">{{ u.email }}</td>
+
+                        <td class="border border-gray-300 px-4 py-3">
+                            @if (u.papel == "adm") {
+                                <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm">
+                                    Administrador
+                                </span>
+                            } @else {
+                                <span class="bg-gray-500 text-white px-3 py-1 rounded-full text-sm">
+                                    Usuário
+                                </span>
                             }
                         </td>
+
                         <td class="border border-gray-300 px-4 py-3 text-center whitespace-nowrap">
-                            <button class="text-blue-600 hover:text-blue-800 mr-3 cursor-pointer"> Editar </button>
-                            <button class="text-red-600 hover:text-red-800 cursor-pointer" (click)="excluir(u.id)"> Excluir </button>
+
+                            <button
+                                class="text-blue-600 hover:text-blue-800 mr-3 cursor-pointer"
+                                (click)="editar(u.id)">
+                                Editar
+                            </button>
+
+                            <button
+                                class="text-red-600 hover:text-red-800 cursor-pointer"
+                                (click)="excluir(u.id)">
+                                Excluir
+                            </button>
+
                         </td>
                     </tr>
                 } @empty {
@@ -42,6 +61,68 @@
                     </tr>
                 }
             </tbody>
+
         </table>
     </div>
+
+    <!-- MODAL -->
+@if (modalAberto()) {
+
+    <div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 text-sm">
+
+        <div class="bg-gray-200 w-140 h-100 rounded-lg p-6 flex flex-col shadow-xl">
+
+            <!-- conteúdo -->
+            <div class="flex flex-col gap-3 w-full">
+
+                <h2 class="text-xl font-semibold">
+                    Nome:
+                    <span class="font-normal">{{ nomeUsuario() }}</span>
+                </h2>
+
+                <h2 class="text-xl font-semibold">
+                    Email:
+                    <span class="font-normal">{{ emailUsuario() }}</span>
+                </h2>
+
+                <!-- nível de acesso -->
+                <div class="flex flex-row gap-2 items-center mt-3">
+
+                    <h2 class="font-semibold">Nível de acesso:</h2>
+
+                    <select
+                        class="bg-gray-300 rounded-lg cursor-pointer px-2 py-1"
+                        [ngModel]="papelUsuario()"
+                        (ngModelChange)="papelUsuario.set($event)">
+
+                        <option value="user">Usuário</option>
+                        <option value="adm">Administrador</option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+            <!-- botões -->
+            <div class="mt-auto flex justify-end gap-3 w-full pt-4">
+
+                <button
+                    (click)="fecharModal()"
+                    class="bg-gray-500 px-4 py-2 text-white cursor-pointer rounded-lg hover:bg-gray-400 duration-300">
+                    Cancelar
+                </button>
+
+                <button
+                    (click)="salvarAlteracao()"
+                    class="bg-blue-600 px-4 py-2 text-white cursor-pointer rounded-lg hover:bg-blue-500 duration-300">
+                    Salvar
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+}
+
 </div>

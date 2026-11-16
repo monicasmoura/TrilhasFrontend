@@ -147,8 +147,8 @@ export class Trilhas{
             this.carregarTrilhas();
             },
             error: (erro) => {
-            console.error('Erro ao criar a trilha:', erro);
-            this.notification.warning('Erro ao criar a trilha');
+                console.error('Erro ao criar a trilha:', erro);
+              this.notification.warning('Erro ao criar a trilha');
             }
         });
    }

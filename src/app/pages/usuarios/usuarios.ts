@@ -20,6 +20,12 @@ interface Usuario{
 
 export class Usuarios{
   usuarios = signal<Usuario[] | null>(null);
+  idUsuario = signal<number>(0);
+  nomeUsuario = signal<string>('');
+  emailUsuario = signal<string>('');
+  papelUsuario = signal<string>('');
+  modalAberto = signal<boolean>(false);
+
   private http = inject(HttpClient);
   private notification = inject(NotificationService);
 
@@ -45,10 +51,64 @@ export class Usuarios{
     });
 }
 
-  editar(){
-
+  fecharModal(){
+    this.idUsuario.set(0);
+    this.nomeUsuario.set("");
+    this.emailUsuario.set("");
+    this.papelUsuario.set("");
+    this.modalAberto.set(false)
   }
 
+  editar(id: number) {
+      this.http.get<Usuario>(`http://localhost:8080/api/usuarios/${id}`).subscribe({
+          next: (dados) => {
+              console.log(dados);
+              this.idUsuario.set(dados.id);
+              this.nomeUsuario.set(dados.nome);
+              this.emailUsuario.set(dados.email);
+              this.papelUsuario.set(dados.papel);
+              this.modalAberto.set(true);
+          },
+          error: (erro) => {
+              console.error('Erro ao buscar usuario:', erro);
+          }
+      });
+  }
+
+
+  salvarAlteracao() {
+
+    const token = localStorage.getItem("secret");
+
+    this.http.put<boolean>(
+        `http://localhost:8080/api/usuarios/${this.idUsuario()}`,
+        {
+            papel: this.papelUsuario()
+        },
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    ).subscribe({
+
+        next: (res) => {
+            this.notification.success('Usuário atualizado com sucesso!');
+            this.fecharModal();
+            this.carregarUsuarios();
+        },
+
+        error: (erro) => {
+            console.error('Erro ao atualizar usuário:', erro);
+            this.notification.info('Erro ao atualizar usuário!');
+        }
+
+    });
+
+}
+
+
+  
   carregarUsuarios() {
   this.http.get<Usuario[]>('http://localhost:8080/api/usuarios').subscribe({
     next: (dados) => {
